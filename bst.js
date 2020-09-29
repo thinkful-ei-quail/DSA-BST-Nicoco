@@ -1,4 +1,5 @@
 const BinarySeachTree = require('./BinarySearchTree');
+const BinaryTree = require('./BinaryTree');
 
 
 function createBST(array) {
@@ -40,9 +41,58 @@ function calculateTreeHeight(tree, ticker = 0) {
 }
 
 // console.log(calculateTreeHeight(new BinarySeachTree()));
-console.log(calculateTreeHeight(newBST));
+// console.log(calculateTreeHeight(newBST));
 
 const bigOlBST = createBST([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+// console.log(calculateTreeHeight(bigOlBST));
 
+function checkIfIsBST(tree) {
+  // base case
+  if (tree.right && tree.left) {
+    if (tree.right.key < tree.key || tree.left.key > tree.key) {
+      return false;
+    }
+    return checkIfIsBST(tree.right) && checkIfIsBST(tree.left);
+  }
 
-console.log(calculateTreeHeight(bigOlBST));
+  else if (!tree.left && tree.right) {
+    if (tree.right.key < tree.key) {
+      return false;
+    }
+    return checkIfIsBST(tree.right);
+  }
+
+  else if (!tree.right && tree.left) {
+    if (tree.left.key > tree.key) {
+      return false;
+    }
+    return checkIfIsBST(tree.left);
+  }
+
+  else if (!tree.right && !tree.left) {
+    return true;
+  }
+}
+
+// console.log('should be true: ', checkIfIsBST(bigOlBST));
+// console.log('should be true: ', checkIfIsBST(new BinarySeachTree()));
+
+function createBinaryTree(array) {
+  const BT = new BinaryTree();
+  for (let i = 0; i < array.length; ++i) {
+    BT.insert(array[i], 1);
+  }
+  return BT;
+}
+
+// const BT = createBinaryTree(numArray);
+// console.log('should be false: ', checkIfIsBST(BT));
+
+// const anotherBinaryTree = createBinaryTree([0, 1]);
+// console.log('should be false: ', checkIfIsBST(anotherBinaryTree));
+// const anotherBST = createBST([0, 1]);
+// console.log('should be true: ', checkIfIsBST(anotherBST));
+
+function findThirdLargestNode(tree) {
+
+}
